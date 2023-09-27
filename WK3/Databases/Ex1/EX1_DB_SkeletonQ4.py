@@ -23,14 +23,14 @@ def createTable():
             ("T.Jones", 33),
             ("L.Shine", 55),
             ("M.Moore", 45),
-            ("W.Lemon", 66), ]
+            ("W.Lemmon", 66), ]
 
         cur.executemany("INSERT INTO Person VALUES(?, ?)", data)
 
         con.commit()
 
     except:
-        print("Person Aready Exists")
+        print("Person Already Exists")
 
 
 # ========= Definitions ============================
@@ -68,32 +68,12 @@ def insertCmd(newName, newAge):
         print('Person: ', newName, ' does not exist in Database')
 
 
-def updateAgeCmd(name, newAge):
+def doubleAgeCmd(ageLimit):
     try:
-        cur.execute("UPDATE Person SET age = ? WHERE name = ?", (newAge, name))
+        cur.execute("UPDATE Person SET age = age*2 WHERE age < " + str(ageLimit))
         con.commit()
     except:
-        print("Person: ", name, "doesn't exist in database.")
-
-
-def deleteAgeCmd(ageLimit):
-    try:
-        cur.execute("DELETE from Person WHERE age < " + str(ageLimit))
-        con.commit()
-    except:
-        print("No people age < ", ageLimit, "to delete from database.")
-
-
-def displayInRangeCmd(lowerAge, upperAge):
-    try:
-        cur.execute("SELECT * FROM Person WHERE age >= " + str(lowerAge) + " AND AGE <= " + str(upperAge))
-        #con.commit()
-        peopleList = cur.fetchall()
-        # Use for loop when view only
-        for i in peopleList:
-            print("Name: ", i[0], "Age: ", i[1])
-    except:
-        print("No people to displayed in given range: " + str(lowerAge) + " to " + str(upperAge))
+        print("No ages to double")
 
 
 # con = sqlite3.connect("../../Downloads/tutorial.db")
@@ -121,25 +101,33 @@ name = input('\nEnter Name of Person to Add: ')
 age = int(input('\nEnter Persons Age: '))
 insertCmd(name, age)
 displayAll()
-'''
-# Q1 resetting Age
-# print('Resetting Age to a new Value')
-# name = input('\nEnter Name of Student to Reset Age: ')
-# age = int(input('\nEnter New Age: '))
-# updateAgeCmd(name, age)
-# displayAll()
 
-# --------------------------------------------
+#Q1 resetting Age
+print('Resetting Age to a new Value')
+name = input('\nEnter Name of Student to Reset Age: ')
+age = int(input('\nEnter New Age: '))
+updateAgeCmd(name, age)
+displayAll()
+
+
+#--------------------------------------------
 # Q2 displaying people within Age Range
-# print('Displaying details about People in Given Age Range Inclusive')
-# lowerAge = int(input('\nEnter Lower Age Limit: '))
-# upperAge = int(input('\nEnter Upper Age Limit: '))
-# displayInRangeCmd(lowerAge, upperAge)
+print('Displaying details about People in Given Age Range Inclusive')
+lowerAge = int(input('\nEnter Lower Age Limit: '))
+upperAge = int(input('\nEnter Upper Age Limit: '))
+displayInRangeCmd(lowerAge, upperAge)
 
 
-# --------------------------------------------
-# Q3 Deleting people younger tan a given Value
-#print('Deleting Everyone in the list younger than a given age')
-#ageLimit = int(input('\nEnter Lower Age Limit: '))
-#deleteAgeCmd(ageLimit)
-#displayAll()
+
+#--------------------------------------------
+# Q3 Deleting people younger than a given Value
+print('Deleting Everyone in the list younger than a given age')
+ageLimit = int(input('\nEnter Lower Age Limit: '))
+deleteAgeCmd(ageLimit)
+displayAll()
+'''
+# Q4 Double the age of Everyone in list of Everyone under a given Age
+print('Double the age of Everyone in list of Everyone under a given age: ')
+ageLimit = int(input('\nEnter Lower Age Limit: '))
+doubleAgeCmd(ageLimit)
+displayAll()
