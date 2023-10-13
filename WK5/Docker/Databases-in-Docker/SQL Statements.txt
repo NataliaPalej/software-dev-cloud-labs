@@ -1,0 +1,5 @@
+create table testapp.Teams (name varchar(10), score integer);
+insert into testapp.Teams values ('United', '53');
+insert into testapp.Teams values ('City', '54');
+insert into testapp.Teams values ('Rovers', '64');
+select * from testapp.Teams
