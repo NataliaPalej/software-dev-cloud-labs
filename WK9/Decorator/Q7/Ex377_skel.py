@@ -16,7 +16,7 @@ def repeat_void(num_times=2):
         return closure
     return repeat_void_decorator
 
-@repeat_void(5)
+@repeat_void(num_times=5)
 def printName(value):
     print("Name is: ", value)
 
