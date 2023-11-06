@@ -8,7 +8,8 @@ def main():
     print('\nPrice including VAT + Delivery Charge')
     vat_decorator(delivery_decorator(printTotalPrice))(price)
     print("\nExtra decorator + €20: ")
-    extra_decorator(vat_decorator(delivery_decorator(printTotalPrice)))(price)
+    vat_decorator(delivery_decorator(extra_decorator(printTotalPrice)))(price)
+
 
 def vat_decorator(func):
     def closure(n):
