@@ -5,15 +5,17 @@ def main():
     print()
     printNames("John", "Joseph","Michael","Leo", "Jones")
 
-def max_four_args_decorator(func):
-    def closure(*args):
-        if len(args) > 4:
-            print("Only 4 arguments allowed")
-        else:
-            return func(*args)
-    return closure
+def max_args_decorator(max_entry=2):
+    def max_args_decorator(func):
+        def closure(*args):
+            if len(args) > max_entry:
+                print("Only {0} arguments allowed".format(max_entry))
+            else:
+                return func(*args)
+        return closure
+    return max_args_decorator
 
-@max_four_args_decorator
+@max_args_decorator(5)
 def printNames(*args):
     for el in args:
         print(el,end=' ')
